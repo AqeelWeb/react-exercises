@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Validate Custom React Component Props with PropTypes</title> 
+</head>
+
+<div id="root"></div>
+
+<script src="https://unpkg.com/react@16.0.0-rc.3/umd/react.development.js"></script>
+<script src="https://unpkg.com/react-dom@16.0.0-rc.3/umd/react-dom.development.js"></script>
+<script src="https://unpkg.com/prop-types@15.6.0/prop-types.js"></script>
+<script src="https://unpkg.com/babel-standalone@6.26.0/babel.js"></script>
+
+<script type="text/babel">
+function SayHello(props) {
+  return (
+    <div>
+      Hello {props.firstName} {props.lastName}!
+    </div>
+  )
+};
+
+SayHello.propTypes = {
+  firstName: PropTypes.string.isRequired,
+  lastName: PropTypes.string.isRequired,
+};
+
+ReactDOM.render(
+  <SayHello firstName={true} />,
+  document.getElementById('root')
+);
+</script>
+
+</body>
+</html>
