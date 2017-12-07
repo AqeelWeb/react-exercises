@@ -4,6 +4,7 @@
   <meta charset="UTF-8">
   <title>JSX with React</title> 
 </head>
+<body>
 
 <div id="root"></div>
 
@@ -18,7 +19,7 @@ const myClassName = 'container';
 const props = {
   className: 'container',
   children: 'Hello World',
-}
+};
 const element = <div {...props} />;
 ReactDOM.render(element, rootElement);
 </script>

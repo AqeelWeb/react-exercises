@@ -4,6 +4,7 @@
   <meta charset="UTF-8">
   <title>Validate Custom React Component Props with PropTypes</title> 
 </head>
+<body>
 
 <div id="root"></div>
 
@@ -18,13 +19,13 @@ function SayHello(props) {
     <div>
       Hello {props.firstName} {props.lastName}!
     </div>
-  )
-};
+  );
+}
 
 SayHello.propTypes = {
   firstName: PropTypes.string.isRequired,
   lastName: PropTypes.string.isRequired,
-};
+}
 
 ReactDOM.render(
   <SayHello firstName={true} />,

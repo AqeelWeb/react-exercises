@@ -2,26 +2,27 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Hello World</title> 
+  <title>Custom React Components</title> 
 </head>
+<body>
 
 <div id="root"></div>
 
 <script src="https://unpkg.com/react@16.0.0-rc.3/umd/react.development.js"></script>
 <script src="https://unpkg.com/react-dom@16.0.0-rc.3/umd/react-dom.development.js"></script>
-<script type="text/javascript">
-const rootElement = document.getElementById('root');
-//const element = document.createElement('div');
-//element.textContent = 'Hello World';
-//element.className = 'container';
-//rootElement.appendChild(element);
+<script src="https://unpkg.com/babel-standalone@6.26.0/babel.js"></script>
 
-const element = React.createElement(
-  'div', {
-  className: 'container',
-  children: 'Hello World',
-});
-console.log(element);
+<script type="text/babel">
+const rootElement = document.getElementById('root');
+const Message = props => <div>{props.children}</div>;
+const element = (
+  <div className="container">
+    <Message>
+      Hello World
+      <Message>Goodbye World</Message>
+  	</Message>
+  </div>
+);
 ReactDOM.render(element, rootElement);
 </script>
 
