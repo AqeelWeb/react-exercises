@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>HTTP Requests</title>
+</head>
+<body>
+
+<div id="root"></div>
+
+<script src="https://unpkg.com/react@16.0.0/umd/react.development.js"></script>
+<script src="https://unpkg.com/react-dom@16.0.0/umd/react-dom.development.js"></script>
+<script src="https://unpkg.com/babel-standalone@6.26.0/babel.js"></script>
+<script src="https://unpkg.com/axios@0.16.2/dist/axios.min.js"></script>
+
+<script type="text/babel">
+class UserLocation extends React.Component {
+  state = {location: undefined, loaded: false}
+  fetchLocation = () => {
+    axios({
+      url: 'https://api.github.com/graphql',
+      method: 'post',
+      data: {
+        query: `{
+          user(login: "${this.props.username}") {
+            location
+          }
+        }`,
+      },
+      headers: {
+        Authorization: `bearer 69565428a01b1bceb4f9759d4b25b125f0d27b7f`,
+      },
+    }).then( response => {
+      this.setState({
+        loaded: true,
+        location: response.data.data.user.location,
+      });
+    });
+  }
+
+  render() {
+    return this.state.loaded
+      ? this.state.location || 'Unknown'
+      : '...'
+  }
+
+  componentDidMount() {
+    this.fetchLocation();
+  }
+
+  componentDidUpdate(prevProps) {
+    if (
+      prevProps.username !== this.props.username
+    ) {
+      this.fetchLocation();
+    }
+  }
+}
+
+class App extends React.Component {
+  state = {username: undefined}
+  handleSubmit = e => {
+    e.preventDefault();
+    this.setState({
+      username: this.inputNode.value,
+    });
+  }
+
+  render() {
+    const {username} = this.state;
+    return (
+      <div>
+        <form onSubmit={this.handleSubmit}>
+          <input
+            ref={node => (this.inputNode = node)}
+            placeholder="Enter GitHub username."
+          />
+        </form>
+        {username ? (
+          <UserLocation username={username} />
+        ) : null}
+      </div>
+    );
+  }
+}
+
+ReactDOM.render(
+  <App />,
+  document.getElementById('root'),
+);
+</script>
+
+</body>
+</html>
